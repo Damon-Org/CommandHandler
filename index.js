@@ -11,7 +11,7 @@ export default class CommandHandler extends EventModule {
             scope: 'global',
             requires: [
                 'commandRegistrar',
-                'guildSettings'
+                'guildSetting'
             ],
             events: [
                 {
