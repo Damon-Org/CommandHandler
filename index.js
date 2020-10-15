@@ -99,7 +99,7 @@ export default class CommandHandler extends EventModule {
 
             return this._commandMatch(msgObj, ctx);
         }
-        else if (this.config.allow_mention_prefix && content.match(/<@!?(\d+)>/i) && content.match(/<@!?(\d+)>/i)[1] == this.mainClient.user.id) {
+        else if (this.config.allow_mention_prefix && content.match(/<@!?(\d+)>/i) && content.match(/<@!?(\d+)>/i)[1] == this._m.user.id) {
             const ctx = content.replace(/<@[^>]+> /, '');
 
             return this._commandMatch(msgObj, ctx, true);
