@@ -10,8 +10,7 @@ export default class CommandHandler extends EventModule {
             name: 'commandHandler',
             scope: 'global',
             requires: [
-                'commandRegistrar',
-                'guildSetting'
+                'commandRegistrar'
             ],
             events: [
                 {
@@ -20,11 +19,6 @@ export default class CommandHandler extends EventModule {
                 },
                 {
                     'mod': 'commandRegistrar',
-                    'name': 'ready',
-                    'call': '_setReady'
-                },
-                {
-                    'mod': 'guildSettings',
                     'name': 'ready',
                     'call': '_setReady'
                 }
@@ -78,7 +72,7 @@ export default class CommandHandler extends EventModule {
      * @private {Message} msgObj
      */
     _onMessage(msgObj) {
-        if (this.ready !== 2) return false;
+        if (this.ready < 1) return false;
         if (msgObj.system) return false;
         if (msgObj.partial) return false;
         if (msgObj.type !== 'DEFAULT') return false;
@@ -110,12 +104,13 @@ export default class CommandHandler extends EventModule {
     }
 
     /**
+     * This method is meant to count the amount of submodules that should be ready before processing commands
      * @private
      */
     _setReady() {
         this._ready++;
 
-        if (this._ready >= 2) this._commandList = this.getModule('commandRegistrar').commandList;
+        if (this._ready >= 1) this._commandList = this.getModule('commandRegistrar').commandList;
     }
 
     setup() {
