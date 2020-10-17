@@ -110,7 +110,7 @@ export default class CommandHandler extends EventModule {
     _setReady() {
         this._ready++;
 
-        if (this._ready >= 1) this._commandList = this.getModule('commandRegistrar').commandList;
+        if (this._ready >= 1) this._commandList = this.modules.commandRegistrar.commandList;
     }
 
     setup() {
