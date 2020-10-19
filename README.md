@@ -8,4 +8,4 @@ This module is responsible for detecting if a message is a command and if the co
 
 ## Documentation
 
-See [`/doc/commandHandler.md`](doc/commandHandler.md) for a Node.js like documentation.
+See [`/docs/commandHandler.md`](docs/commandHandler.md) for a Node.js like documentation.
