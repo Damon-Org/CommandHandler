@@ -28,6 +28,23 @@ The module uses an unmodified version `EventModule` class.
 
 - `call` {Function} The function to be called whenever the CommandHandler requests a prefix from the supplier for a guild.
 
+Your function should expect a server instance as argument, you can from this server instance get the ID and match it with a custom prefix.
+
+Example code:
+```js
+/**
+ * @param {Server} server The server instance to fetch the prefix for
+ * @returns {string} The string representing the custom prefix
+ */
+function getPrefix(server) {
+    const guildId = server.id;
+
+    // Whatever your way of storing the prefix is
+    const prefix = this.storage.getPrefix(guildId);
+
+    return prefix;
+}
+```
 Returns `void`.
 
 ## Events
