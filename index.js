@@ -2,6 +2,7 @@ import EventModule from './structures/EventModule.js'
 
 export default class CommandHandler extends EventModule {
     _ready = 0;
+    _prefixSupplier = null;
 
     constructor(main) {
         super(main);
@@ -71,7 +72,7 @@ export default class CommandHandler extends EventModule {
     /**
      * @private {Message} msgObj
      */
-    _onMessage(msgObj) {
+    async _onMessage(msgObj) {
         if (this.ready < 1) return false;
         if (msgObj.system) return false;
         if (msgObj.partial) return false;
@@ -82,9 +83,10 @@ export default class CommandHandler extends EventModule {
         const content = msgObj.content.replace(/\s+/g, ' ');
 
         let prefix = this.globalStorage.get('prefix');
-        if (!this.config.development && msgObj.guild) {
+        if (!this.config.development && msgObj.guild && this._prefixSupplier) {
             const server = this.servers.get(msgObj.guild.id);
-            prefix = server.prefix;
+
+            prefix = await this._prefixSupplier(server);
         }
 
         // check if the message starts with the prefix we want
@@ -111,6 +113,14 @@ export default class CommandHandler extends EventModule {
         this._ready++;
 
         if (this._ready >= 1) this._commandList = this.modules.commandRegistrar.commandList;
+    }
+
+    /**
+     * Set the prefix supplier, whenever your function is called
+     * @param {Function} [call=null] The function that should be called to get a custom prefix for a server, leave empty to reset
+     */
+    setPrefixSupplier(call = null) {
+        this._prefixSupplier = call;
     }
 
     setup() {
