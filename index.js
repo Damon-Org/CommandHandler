@@ -1,4 +1,5 @@
 import EventModule from './structures/EventModule.js'
+import { ArgumentLimit } from './util/Constants.js'
 
 export default class CommandHandler extends EventModule {
     _ready = 0;
@@ -44,6 +45,12 @@ export default class CommandHandler extends EventModule {
      */
     _commandMatch(msgObj, ctx, mentioned = false) {
         const args = ctx.split(' ');
+
+        if (args.length > ArgumentLimit) {
+            msg.channel.send(`The amount of words passed exceeds the limit of ${ArgumentLimit} arguments. If you think this is an error contact the developer.`);
+
+            return false;
+        }
 
         for (let i = args.length; 0 < i; i--) {
             const attempt = args.slice(0, i).join(' ');
