@@ -54,10 +54,9 @@ export default class CommandHandler extends EventModule {
 
         for (let i = args.length; 0 < i; i--) {
             const attempt = args.slice(0, i).join(' ');
-            const match = this.commandList.get(attempt);
-            if (!match) continue;
+            if (!this.commandList.has(attempt)) continue;
 
-            const instance = match;
+            const instance = this.commandList.get(attempt);
             const index = attempt.split(' ').length;
             const trigger = args.splice(0, index);
 
