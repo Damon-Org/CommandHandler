@@ -61,8 +61,8 @@ export default class CommandHandler extends EventModule {
             const trigger = args.splice(0, index);
 
             try {
-                const clone = instance.clone();
-                clone.check(msgObj, args, trigger.join(' '), mentioned);
+                const command = instance.clone();
+                command.exec(msgObj, args, trigger.join(' '), mentioned);
 
                 this.emit('command', instance, msgObj, args, mentioned);
             } catch (e) {
