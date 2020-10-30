@@ -128,8 +128,4 @@ export default class CommandHandler extends EventModule {
     setPrefixSupplier(call = null) {
         this._prefixSupplier = call;
     }
-
-    setup() {
-        return true;
-    }
 }
