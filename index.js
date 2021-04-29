@@ -47,7 +47,7 @@ export default class CommandHandler extends EventModule {
         const args = ctx.split(' ');
 
         if (args.length > ArgumentLimit) {
-            msg.channel.send(`The amount of words passed exceeds the limit of supported arguments. If you think this is an error contact the developer.`);
+            msgObj.channel.send(`The amount of words passed exceeds the limit of supported arguments. If you think this is an error contact the developer.`);
 
             return false;
         }
