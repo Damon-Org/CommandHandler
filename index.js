@@ -10,13 +10,12 @@ export default class CommandHandler extends EventModule {
 
         this.register(CommandHandler, {
             name: 'commandHandler',
-            scope: 'global',
             requires: [
                 'commandRegistrar'
             ],
             events: [
                 {
-                    'name': 'message',
+                    'name': 'messageCreate',
                     'call': '_onMessage'
                 },
                 {
@@ -79,7 +78,7 @@ export default class CommandHandler extends EventModule {
      * @private {Message} msgObj
      */
     async _onMessage(msgObj) {
-        if (this.ready < 1) return false;
+        if (this._ready < 1) return false;
         if (msgObj.system) return false;
         if (msgObj.partial) return false;
         if (msgObj.type !== 'DEFAULT') return false;
