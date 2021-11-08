@@ -63,7 +63,7 @@ export default class CommandHandler extends EventModule {
                 const command = instance.clone();
                 command.exec(msgObj, args, trigger.join(' '), mentioned);
 
-                this.emit('command', instance, msgObj, args, mentioned);
+                this.emit('command', command, msgObj, args, mentioned);
             } catch (e) {
                 msgObj.channel.send(`An error occured while trying to run the following command \`${attempt}\`\nWith the following output: \`\`\`js\n${e.stack}\`\`\``);
             }
